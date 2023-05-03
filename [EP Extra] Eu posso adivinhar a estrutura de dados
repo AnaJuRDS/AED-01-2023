@@ -1,0 +1,51 @@
+#include <iostream>
+#include <stack> //Pilha: salva o endereço de retorno de funções
+#include <queue> //Fila: Fist-In-Fist-Out (FIFO)
+
+using namespace std;
+
+int main(){
+    int Nteste, x, y;
+    bool _p, _q, _s; //armazena valores verdadeiros ou falsos
+
+    while(scanf("%d", &Nteste) != EOF){
+        priority_queue<int> Pfila;
+        queue<int> fila;
+        stack<int> pilha;
+        
+        _p = true, _q = true, _s = true;
+
+        for (int i = 0; i < Nteste; ++i){
+            scanf("%d %d", &x, &y);
+
+            if(x == 1){ //comando primário (colocar na sacola)
+                Pfila.push(y); //inserir no topo
+                fila.push(y);
+                pilha.push(y);
+            }else{   //comando secundário (tirar da sacola)
+                if(Pfila.top() != y){ //diferente do maior da fila de prioridade
+                    _p = false;
+                }if(fila.front() != y){ //diferente do primeiro da fila(FIFO)
+                    _q = false;
+                }if(pilha.top() != y){ //diferente do topo da pilha(LIFO)
+                    _s = false;
+                }
+                Pfila.pop(); fila.pop(); pilha.pop(); //retirar do topo da pilha
+        }
+  }
+
+    if((_p && _q && _s) || (!_p && _q && _s) || (_p && !_q && _s) || (_p && _q && !_s)){
+        printf("not sure\n");
+    }else if (_p && !_q && !_s){
+        printf("priority queue\n");
+    }else if (_q && !_p && !_s){
+        printf("queue\n");
+    }else if (_s && !_p && !_q){
+        printf("stack\n");
+    }else{
+        printf("impossible\n");
+    }
+ }
+
+ return 0;
+}
