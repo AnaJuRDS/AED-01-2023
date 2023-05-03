@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <time.h>
-#define tamanho 100000
+#define tamanho 20000
 
 //InsertionSort: ordem crescente
 void insertionsort (int tam, int vet[]) {
