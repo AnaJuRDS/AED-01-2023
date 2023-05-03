@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+
+    //declaração de variáveis
+    int n, i, j, t1, t2, m;
+    char n1[50], n2[50];
+
+    //leitura da quantidade de casos teste
+    scanf("%i", &n);
+
+    // tamanho dos strings
+    for(i = 0; i < n; i++) {
+        scanf("%s %s", &n1, &n2);
+        t1 = strlen( n1 ); // função n° de caracteres
+        t2 = strlen( n2 );
+
+        if(t1 < t2){  // aderir valor ao maior
+            m = t2;
+        } else {
+            m = t1;
+        }
+
+        //imprime a saída de acordo com o tamanho
+        for(j = 0; j < m; j++){
+            if(j < t1){
+                printf("%c", n1[j]);
+            }
+            if(j < t2) {
+                printf("%c", n2[j]);
+            }
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
