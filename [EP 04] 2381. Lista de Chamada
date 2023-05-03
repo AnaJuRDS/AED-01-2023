@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+void ordenacao(char recebe[][21], int tam){
+    int i, j;
+    char aux[21];
+    for(i = 0; i < tam-1; i++){
+        for(j = 0; j < tam-1; j++){ 
+            if(strcmp(recebe[j], recebe[j+1]) > 0){ //strcmp: compara de maneira que A...<...Z
+                strcpy(aux, recebe[j]); //strcpy: copia a string, trocando os valores entre elas
+                strcpy(recebe[j], recebe[j+1]);
+                strcpy(recebe[j+1], aux);
+            }
+        }
+    }
+}
+
+int main() {
+
+    int Ntotal, Kpremiado, i;
+    char nomes[100][21];
+
+    scanf("%d %d", &Ntotal, &Kpremiado);
+
+
+    for(i = 0 ; i < Ntotal ; i++){
+       scanf("%s", nomes[i]);
+    }
+
+    ordenacao(nomes, Ntotal);
+
+    printf("%s\n", nomes[Kpremiado-1]);
+
+    return 0;
+}
