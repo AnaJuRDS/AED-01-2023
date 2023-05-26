@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 100001
+
+void minusculo (char carta[]){
+    int i = 0;
+
+    while(carta[i] != NULL){
+        carta[i] = tolower(carta[i]);
+        i++;
+    }
+}
+int main(){
+
+    char carta[MAX];
+
+    scanf("%s", carta);
+
+    minusculo(carta);
+
+    if(strstr(carta, "zelda") != NULL){
+        printf("Link Bolado\n");
+    }else{
+        printf("Link Tranquilo\n");
+    }
+    return 0;
+}
