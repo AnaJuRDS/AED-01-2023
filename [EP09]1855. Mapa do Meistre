@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 100
+
+char mapa[MAX][MAX];
+int visitado[MAX][MAX];
+int altura, largura, posX, posY, dirX, dirY;
+
+int valido(int x, int y) {
+    return x >= 0 && y >= 0 && x < altura && y < largura;
+}
+
+int main() {
+    scanf("%d%d", &largura, &altura);
+    for (int i = 0; i < altura; i++) {
+        scanf("%s", mapa[i]);
+    }
+    
+    while (valido(posX, posY)) {
+        if (visitado[posX][posY]) {
+            printf("!\n");
+            return 0;
+        }
+        if (mapa[posX][posY] == '*') {
+            printf("*\n");
+            return 0;
+        }
+        if (mapa[posX][posY] == '>') {
+            dirX = 0;
+            dirY = 1;
+        } else if (mapa[posX][posY] == '<') {
+            dirX = 0;
+            dirY = -1;
+        } else if (mapa[posX][posY] == 'v') {
+            dirX = 1;
+            dirY = 0;
+        } else if (mapa[posX][posY] == '^') {
+            dirX = -1;
+            dirY = 0;
+        }
+        
+        visitado[posX][posY] = 1;
+        posX += dirX;
+        posY += dirY;
+    }
+    
+    return 0;
+}
