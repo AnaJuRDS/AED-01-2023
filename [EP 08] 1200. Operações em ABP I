@@ -1,0 +1,120 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define TIPO char
+
+int cont = 0;
+
+typedef struct nodo {
+    struct nodo *esquerda;
+    TIPO informacao;
+    struct nodo *direita;
+} nodo;
+
+nodo *P;
+int espaco;
+
+// Função para inserir um valor na árvore
+struct nodo *insere(nodo *tree, TIPO informacao) {
+    if (tree == NULL) {
+        tree = (nodo *)malloc(sizeof(nodo));
+        tree->informacao = informacao;
+        tree->esquerda = NULL;
+        tree->direita = NULL;
+    } else if (informacao < tree->informacao) {
+        tree->esquerda = insere(tree->esquerda, informacao);
+    } else if (informacao > tree->informacao) {
+        tree->direita = insere(tree->direita, informacao);
+    }
+    return tree;
+}
+
+// Função para buscar um valor na árvore
+struct nodo *busca(nodo *raiz, char valor) {
+    if (raiz == NULL) {
+        printf("%c nao existe\n", valor);
+        return NULL;
+    } else {
+        if (raiz->informacao > valor) {
+            busca(raiz->esquerda, valor);
+        } else if (raiz->informacao < valor) {
+            busca(raiz->direita, valor);
+        } else {
+            printf("%c existe\n", valor);
+        }
+    }
+    return raiz;
+}
+
+// Função para imprimir a árvore em ordem infixa
+void infixa(nodo *tree) {
+    if (tree != NULL) {
+        infixa(tree->esquerda);
+        if (espaco != 1)
+            printf(" %c", tree->informacao);
+        else {
+            printf("%c", tree->informacao);
+            espaco = 0;
+        }
+        infixa(tree->direita);
+    }
+}
+
+// Função para imprimir a árvore em ordem prefixa
+void prefixa(nodo *tree) {
+    if (tree != NULL) {
+        if (espaco != 1)
+            printf(" %c", tree->informacao);
+        else {
+            printf("%c", tree->informacao);
+            espaco = 0;
+        }
+        prefixa(tree->esquerda);
+        prefixa(tree->direita);
+    }
+}
+
+// Função para imprimir a árvore em ordem posfixa
+void posfixa(nodo *tree) {
+    if (tree != NULL) {
+        posfixa(tree->esquerda);
+        posfixa(tree->direita);
+        if (espaco != 1)
+            printf(" %c", tree->informacao);
+        else {
+            printf("%c", tree->informacao);
+            espaco = 0;
+        }
+    }
+}
+
+int main() {
+    nodo *raiz = NULL;
+    TIPO valor;
+    char op[20];
+    
+    while (scanf("%s", op) != EOF) {
+        if (strcmp(op, "I") == 0) {
+            scanf(" %c", &valor);
+            raiz = insere(raiz, valor);
+        } else if (strcmp(op, "P") == 0) {
+            scanf(" %c", &valor);
+            busca(raiz, valor);
+        } else if (strcmp(op, "INFIXA") == 0) {
+            espaco = 1;
+            infixa(raiz);
+            printf("\n");
+        } else if (strcmp(op, "PREFIXA") == 0) {
+            espaco = 1;
+            prefixa(raiz);
+            printf("\n");
+        } else if (strcmp(op, "POSFIXA") == 0) {
+            espaco = 1;
+            posfixa(raiz);
+            printf("\n");
+        }
+    }
+
+    return 0;
+}
