@@ -1,0 +1,34 @@
+#include <string.h>
+#include <stdio.h>
+
+int main(){
+    int numCasos, numPessoas, mesmoIdioma;
+    char idiomaPrincipal[21], idioma[21];
+
+    // Recebe o número de casos a serem testados
+    scanf("%d", &numCasos);
+
+    for(int caso = 0; caso < numCasos; ++caso){
+        // Recebe o número de pessoas no caso atual
+        scanf("%d\n", &numPessoas);
+
+        mesmoIdioma = 1;
+
+        // Recebe o idioma da primeira pessoa
+        scanf("%s\n", &idiomaPrincipal);
+
+        // Compara o idioma da primeira pessoa com os idiomas das demais pessoas
+        for(int i = 1; i < numPessoas; ++i){
+            scanf("%s\n", &idioma);
+
+            // Se o idioma for diferente do idioma principal, mesmoIdioma recebe 0
+            if(strcmp(idiomaPrincipal, idioma))   mesmoIdioma = 0;
+        }
+
+        // Imprime o resultado do caso atual
+        if(mesmoIdioma) printf("%s\n", idiomaPrincipal);
+        else            printf("ingles\n");
+    }
+
+    return 0;
+}
